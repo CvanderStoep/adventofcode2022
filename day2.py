@@ -20,7 +20,8 @@ def read_input_file():
     scoreTable[("C", "Y")] = 0
     scoreTable[("C", "Z")] = 3
 
-    TranslationTable = {}
+    # part II
+    TranslationTable = {} # this translates the strategy (X, Y, Z) to player2's choice.
     TranslationTable[("A", "X")] = "Z"
     TranslationTable[("A", "Y")] = "X"
     TranslationTable[("A", "Z")] = "Y"
