@@ -14,10 +14,10 @@ def read_input_file():
     for item in content:
         sections = item.split(',')
         section1, section2 = sections[0], sections[1]
-        ranges = section1.split('-')
-        L1, R1 = int(ranges[0]), int(ranges[1])
-        ranges = section2.split('-')
-        L2, R2 = int(ranges[0]), int(ranges[1])
+        end_points = section1.split('-')
+        L1, R1 = int(end_points[0]), int(end_points[1])
+        end_points = section2.split('-')
+        L2, R2 = int(end_points[0]), int(end_points[1])
 
         # part I
         if (L1 <= L2 and R2 <= R1) or (L2 <= L1 and R1 <= R2):

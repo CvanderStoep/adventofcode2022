@@ -1,3 +1,9 @@
+"""
+advent of code 2022
+https://adventofcode.com/2022
+"""
+
+
 def read_input_file():
     # extra empty line added to the input file to avoid corned cases
     filename = "input/input1test.txt"
