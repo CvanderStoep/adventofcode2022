@@ -19,7 +19,7 @@ def read_input_file():
     with open(filename) as f:
         content = f.read().splitlines()
 
-    # part Iday5.py
+    # part I
     for item in content:
         if item.startswith('move') is False:
             continue
@@ -38,9 +38,6 @@ def read_input_file():
         crates_on_top += crate
 
     print(f'partI: {crates_on_top=}')
-
-    # part II
-    # print('partI: number of overlapping assignments= ', number_of_overlapping_assignments)
 
 
 if __name__ == '__main__':

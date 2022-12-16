@@ -43,9 +43,6 @@ def read_input_file():
 
     print(f'partII: {crates_on_top=}')
 
-    # part II
-    # print('partI: number of overlapping assignments= ', number_of_overlapping_assignments)
-
 
 if __name__ == '__main__':
     read_input_file()
