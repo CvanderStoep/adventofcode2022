@@ -83,9 +83,9 @@ def process_operation(monkey, worry_level):
 
 
 def monkey_round(monkey_list, part):
-    ggv = 1
+    test_product = 1
     for monkey in monkey_list:
-        ggv = ggv * monkey.divisible
+        test_product = test_product * monkey.divisible
 
     for monkey in monkey_list:
         for item in monkey.items:
@@ -95,7 +95,7 @@ def monkey_round(monkey_list, part):
             if part == 1:
                 worry_level = worry_level // 3  # needed for part I
             else:
-                worry_level = worry_level % ggv  # needed for part II
+                worry_level = worry_level % test_product  # needed for part II
             divisible = worry_level % monkey.divisible == 0
             if divisible:
                 monkey_list[monkey.action_true].items.append(worry_level)
@@ -112,7 +112,7 @@ if __name__ == '__main__':
     monkey_list = process_content(content)
 
     part, number_of_rounds = 1, 20
-    part, number_of_rounds = 2, 10000
+    # part, number_of_rounds = 2, 10000
 
     for i in range(1, number_of_rounds + 1):
         monkey_round(monkey_list, part)
