@@ -1,5 +1,6 @@
 """
 Advent of Code 2022 Day 17
+code of Advent reddit
 """
 import sys
 

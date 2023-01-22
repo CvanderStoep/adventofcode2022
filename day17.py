@@ -23,20 +23,20 @@ def add_rock_to_tower(rock, tower):
 
 
 def shift_rock(rock, x=0, y=0):
-    #  TODO separate shift and check collision with wall
     shifted_rock = set()
     for r in rock:
         x_new = r[0] + x
         y_new = r[1] + y
-        if x_new < 0 or x_new > 6:
-            return rock
         shifted_rock.add((x_new, y_new))
-
     return shifted_rock
 
+
 def check_collision_with_walls(rock):
-    #  TODO separate shift and check collision with wall
     collision = False
+    for r in rock:
+        if r[0] < 0 or r[0] > 6:
+            collision = True
+            return collision
     return collision
 
 
@@ -45,7 +45,6 @@ def check_collision_with_rocks(tower, rock):
     for r in rock:
         if r in tower:
             collision = True
-            # print('collision in tower')
             return collision
     return collision
 
@@ -55,7 +54,6 @@ def check_collision_with_bottom(rock):
     for r in rock:
         if r[1] <= 0:
             collision = True
-            # print('collision with bottom')
             return collision
     return collision
 
@@ -78,9 +76,28 @@ def print_tower(tower, top):
     return
 
 
+def detect_new_bottom(tower, top):
+    detected = True
+    for x in range(7):
+        if (x, top) not in tower:
+            detected = False
+            return detected
+    return detected
+
+
 def init_tower():
     tower = set()
     return tower
+
+
+def find_pattern(data: list[int]) -> tuple[list[int], list[int]]:
+    for p in range(len(data)):
+        sd = data[p:]
+        for r in range(2, len(sd) // 2):
+            if sd[0:r] == sd[r:2 * r]:
+                if all([(sd[0:r] == sd[y:y + r]) for y in range(r, len(sd) - r, r)]):
+                    return data[:p], data[p:p + r]
+    return [], []
 
 
 def read_input_file(filename):
@@ -92,7 +109,6 @@ def read_input_file(filename):
 if __name__ == '__main__':
     filename = "input/input17.txt"
     jet_pattern = read_input_file(filename)
-    print(jet_pattern)
 
     """"
     get new rock
@@ -124,41 +140,65 @@ if __name__ == '__main__':
     tower = init_tower()
     rock_cycle = cycle(init_rocks())
     direction_cycle = cycle(jet_pattern[0])
+    top_of_tower_list = []
 
-    for _ in range(2022):  # cycle falling rocks
+    for _ in range(10000):  # cycle falling rocks, sample size must be large enough to detect a cycle-pattern
         rock = next(rock_cycle)
         top_of_tower = calculate_top_of_tower(tower, top_of_tower)
+        top_of_tower_list.append(top_of_tower)
         rock = shift_rock(rock, x=0, y=top_of_tower + 4)  # the next rock starts 4 units above the top
         collision = False
+        drop_level = 0
+        shift_direction = 0
         while not collision:  # cycle wind-direction
             direction = next(direction_cycle)
             x = -1 if direction == "<" else 1
             # step 1 move left or right
             shifted_rock = shift_rock(rock, x=x, y=0)
-            collision = check_collision_with_rocks(tower, shifted_rock)
-            # TODO
-            # collision = check collision with walls
-
+            collision1 = check_collision_with_rocks(tower, shifted_rock)
+            collision2 = check_collision_with_walls(shifted_rock)
             # step 2 move left or right
-            if not collision:
+            if not collision1 and not collision2:
                 rock = shift_rock(rock, x=x, y=0)
+                shift_direction += x
+
             # step 3 move down
             shifted_rock = shift_rock(rock, x=0, y=-1)
-            collision = check_collision_with_rocks(tower, shifted_rock)
-            if collision:
+            collision1 = check_collision_with_rocks(tower, shifted_rock)
+            collision2 = check_collision_with_bottom(shifted_rock)
+            if collision1 or collision2:
                 add_rock_to_tower(rock, tower)
+                # tower_helper_list.append((rock_number, shift_direction, drop_level ))
+                collision = True
                 continue
             # step 4 move down
-            shifted_rock = shift_rock(rock, x=0, y=-1)
-            collision = check_collision_with_bottom(shifted_rock)
-            if collision:
-                add_rock_to_tower(rock, tower)
-                continue
+            # shifted_rock = shift_rock(rock, x=0, y=-1)
+            # if collision:
+            #     add_rock_to_tower(rock, tower)
+            #     tower_helper_list.append((rock_number, shift_direction, drop_level ))
+            #     continue
             # step 5 move down
             rock = shift_rock(rock, x=0, y=-1)
+            drop_level += -1
 
     top_of_tower = calculate_top_of_tower(tower, top_of_tower)
-    # print_tower(tower, top_of_tower)
+    top_of_tower_list.append(top_of_tower)
+    top_of_tower_differences = [top_of_tower_list[i + 1] - top_of_tower_list[i] for i in
+                                range(len(top_of_tower_list) - 1)]
 
     print(f'partI: {top_of_tower= } ')
-    print(f'partII:  ')
+    print(f'{top_of_tower_list= }')
+    print(f'{top_of_tower_differences= }')
+
+    preamble, repetition = find_pattern(top_of_tower_differences)
+    print(preamble)
+    print(repetition)
+    p_len = len(preamble)
+    r_len = len(repetition)
+
+    num_rocks = 1000000000000
+    height = sum(preamble) \
+             + sum(repetition) * ((num_rocks - p_len) // r_len) \
+             + sum(repetition[:((num_rocks - p_len) % r_len)])
+
+    print(f'partII: {height= }')
