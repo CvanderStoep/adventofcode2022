@@ -1,4 +1,3 @@
-
 def find_pattern(data: list[int]) -> tuple[list[int], list[int]]:
     for p in range(len(data)):
         sd = data[p:]
@@ -8,10 +7,9 @@ def find_pattern(data: list[int]) -> tuple[list[int], list[int]]:
                     return data[:p], data[p:p + r]
     return [], []
 
-a = [1,3,4,3,4,3,3,4,5,3,4,5,3,4,5]
+
+a = [1, 1, 5, 6, 5, 6, 5, 6, 8, 9, 11, 12, 12, 11, 12, 12, 11, 12, 12]
 
 preamble, repetition = find_pattern(a)
 print(preamble)
 print(repetition)
-
-

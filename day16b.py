@@ -24,6 +24,7 @@ def solve(puzzle):
     pass
 
     def visit(valve, minutes, bitmask, pressure, answer):
+        # print(f'{bitmask= }')
         answer[bitmask] = max(answer.get(bitmask, 0), pressure)
         for valve2, flow in flows.items():
             remaining_minutes = minutes - distances[valve, valve2] - 1

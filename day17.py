@@ -3,6 +3,8 @@
 # ThisClass()
 # VARIABLE (constant)
 
+# https://adventofcode.com/2022/day/17
+
 from itertools import cycle
 
 
@@ -91,6 +93,12 @@ def init_tower():
 
 
 def find_pattern(data: list[int]) -> tuple[list[int], list[int]]:
+    """"
+    this look for pattern in a list
+    [r1, r2, r3, r4, a, b, c, a, b, c, a, b, c]
+    it will return:
+    [r1, r2, r3] and [a, b, c]
+    """
     for p in range(len(data)):
         sd = data[p:]
         for r in range(2, len(sd) // 2):
@@ -141,8 +149,9 @@ if __name__ == '__main__':
     rock_cycle = cycle(init_rocks())
     direction_cycle = cycle(jet_pattern[0])
     top_of_tower_list = []
+    number_of_samples = 10000
 
-    for _ in range(10000):  # cycle falling rocks, sample size must be large enough to detect a cycle-pattern
+    for _ in range(number_of_samples):  # cycle falling rocks, sample size must be large enough to detect a cycle-pattern
         rock = next(rock_cycle)
         top_of_tower = calculate_top_of_tower(tower, top_of_tower)
         top_of_tower_list.append(top_of_tower)
@@ -195,6 +204,13 @@ if __name__ == '__main__':
     print(repetition)
     p_len = len(preamble)
     r_len = len(repetition)
+
+    num_rocks = 2022
+    height = sum(preamble) \
+             + sum(repetition) * ((num_rocks - p_len) // r_len) \
+             + sum(repetition[:((num_rocks - p_len) % r_len)])
+
+    print(f'partI: {height= }')
 
     num_rocks = 1000000000000
     height = sum(preamble) \
