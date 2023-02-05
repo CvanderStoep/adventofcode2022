@@ -87,17 +87,20 @@ if __name__ == '__main__':
                 max_geodes = max(max_geodes, resources[3])
                 resource_production = [robots[i] for i in range(4)] # amount of resources the current robots produce
                 for robot_type in range(4): # check all robots one-by-one, change resources and add to new-status-list
-                    robot_build_possible, new_resources = check_build_robot(robot_type=robot_type, blueprint=blueprint, resources=resources)
+                    robot_build_possible, new_resources = \
+                        check_build_robot(robot_type=robot_type, blueprint=blueprint, resources=resources)
+
                     if robot_build_possible:
                         new_robots = [robots[i] for i in range(4)]
                         new_robots[robot_type] += 1
-                        if robots[0] > 1 or robots[1] > 14 or robots[2] > 7:
+                        # TODO Don't build more robots of a given type than could possibly be necessary given the
+                        #  blueprint
+                        if robots[0] > 3 or robots[1] > 14 or robots[2] > 7:
                             break
                         new_resources = [resource_production[i] + new_resources[i] for i in range(4)]
+                        # TODO delete status that has no added value; lower geode than other.
                         if [new_robots, new_resources] not in new_status_list:
                             new_status_list.append([new_robots, new_resources])
-                        # if type == 4:
-                        #     break
                 resources = [resources[i] + resource_production[i] for i in range(4)]
                 new_status_list.append([robots, resources])
             print(f'{len(new_status_list)= }')
@@ -111,9 +114,3 @@ if __name__ == '__main__':
 
     print(f'partI: ')
     print(f'partII:')
-
-
-# TODO Don't build more robots of a given type than could possibly be necessary given the blueprint
-
-# If a geode machine can be built, it must be built
-# Prune any branches with fewer geodes at a given time than the best so far

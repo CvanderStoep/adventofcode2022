@@ -96,7 +96,7 @@ def main():
     # assert day19('test19') == 33
     # print(f"Part 1: {day19('input19')}")
 
-    print(day19('input/input19test.txt'))
+    print(day19('input/input19.txt'))
 
     # assert day19('test19', True) == 56 * 62
     # # print(f"Part 2 test: {day19('test19', True)}")
