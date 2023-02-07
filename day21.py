@@ -11,21 +11,20 @@ def evaluate(math_operations, starting_point):
     If it is not an integer, it evaluates the left and right sub-expressions recursively,
     and then applies the operator to the resulting values.
     The starting point is 'root' taking from a dictionary of key/value pairs
-    The key is the name of the monkey, the value is the actual expression or the integer
-    example:
-    {'root': 'a + b', 'a': 5, 'b': 2} evaluates to 7
+
+    input: math_operations is a dictionary {}
+    {'root': 'a * b', 'a': 'c + d', 'b': 2, 'c': 3, 'd': 5} evaluates to 16
     """
     expression = math_operations[starting_point]
 
     if isinstance(expression, int):
-        logging.debug(expression)
         return expression
 
     left, operator, right = expression.split(" ")
-    logging.debug(left + operator + right)
 
+    # for partII, both numbers at the root have to be equal -> the difference = 0
+    # this makes the binary search for the root possible
     if starting_point == 'root':
-        logging.debug('root found')
         operator = "-"
 
     left = evaluate(math_operations, left)
@@ -39,11 +38,7 @@ def evaluate(math_operations, starting_point):
         return left * right
     elif operator == '/':
         return left / right
-    elif operator == '=':
-        print(left, right)
-        return left == right
     else:
-        logging.ERROR("unknown operator")
         raise ValueError(f"Unknown operator: {operator}")
     
 
@@ -66,7 +61,7 @@ def read_input_file(filename):
 
 if __name__ == '__main__':
     logging.basicConfig(
-        level=logging.ERROR,  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+        level=logging.WARNING,  # DEBUG, INFO, WARNING, ERROR, CRITICAL
         format="%(asctime)s %(levelname)s %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S"
     )
@@ -74,7 +69,7 @@ if __name__ == '__main__':
     math_operations= read_input_file(filename)
     logging.debug(math_operations)
     humn_number_left = 0
-    humn_number_right = 10  # interval is now large enough, binary search cuts it in half every time.
+    humn_number_right = 10  # starting interval to be expanded until it is large enough to start binary search
 
     math_operations["humn"] = humn_number_left
     value_left = evaluate(math_operations, 'root')
@@ -82,7 +77,7 @@ if __name__ == '__main__':
     math_operations["humn"] = humn_number_right
     value_right = evaluate(math_operations, 'root')
 
-    # make starting interval large enough to contain positive and negative outcome
+    # make starting interval large enough to contain both positive and negative values
     while numpy.sign(value_left) == numpy.sign(value_right):
         humn_number_right *= 1000
         math_operations["humn"] = humn_number_right
@@ -111,5 +106,5 @@ if __name__ == '__main__':
         else:
             humn_number_right = humn_number_middle
 
-    print(f'partI: {humn_number_middle= }')
+    print(f'partII: {humn_number_middle= }')
 
