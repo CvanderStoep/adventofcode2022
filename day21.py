@@ -86,7 +86,9 @@ if __name__ == '__main__':
 
     # binary search cuts the interval in half every time until the zero root is found.
     number_found = False
+    i = 0
     while not number_found:
+        i = i + 1
         logging.info(humn_number_left)
         math_operations["humn"] = humn_number_left
         value_left = evaluate(math_operations,'root')
@@ -94,7 +96,12 @@ if __name__ == '__main__':
         math_operations["humn"] = humn_number_right
         value_right = evaluate(math_operations,'root')
 
+        # slope = (value_right - value_left) / (humn_number_right - humn_number_left)
+        # humn_number_delta = - value_left / slope
+        # humn_number_middle = round(humn_number_left + humn_number_delta)
+        # print(f'{humn_number_middle= }')
         humn_number_middle = (humn_number_left + humn_number_right) // 2
+
         math_operations["humn"] = humn_number_middle
         value_middle = evaluate(math_operations,'root')
 
@@ -107,4 +114,5 @@ if __name__ == '__main__':
             humn_number_right = humn_number_middle
 
     print(f'partII: {humn_number_middle= }')
+    print(f'{i=}')
 
