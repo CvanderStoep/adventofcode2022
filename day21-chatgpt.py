@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 def evaluate_expression(expression, values):
     if type(expression) == int:
         return expression

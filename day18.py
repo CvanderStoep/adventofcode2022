@@ -4,8 +4,7 @@
 # VARIABLE (constant)
 
 # https://adventofcode.com/2022/day/18
-import itertools
-from itertools import cycle
+from itertools import combinations
 import re
 
 
@@ -28,7 +27,7 @@ def read_input_file(filename):
 
 def surface_area(cube_list):
     area = 6 * len(cube_list)
-    for cube1, cube2 in itertools.combinations(cube_list, 2):
+    for cube1, cube2 in combinations(cube_list, 2):
         if distance(cube1, cube2) == 1:
             area -= 2
     return area

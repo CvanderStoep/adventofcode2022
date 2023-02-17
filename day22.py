@@ -1,8 +1,6 @@
 import logging
 import re
 
-import numpy as np
-
 def read_input_file(filename):
     """"
     returns a 3D map array[i][j]
