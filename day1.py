@@ -21,7 +21,7 @@ def read_calories_per_elf(file_name: str) -> List[int]:
             sumOfCalories += int(line)
     totalCalories.append(sumOfCalories)
 
-    totalCalories.sort()
+    totalCalories.sort(reverse=True)
     return totalCalories
 
 
