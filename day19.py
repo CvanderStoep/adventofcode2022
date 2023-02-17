@@ -5,8 +5,6 @@
 
 # https://adventofcode.com/2022/day/19
 from dataclasses import dataclass
-import itertools
-from itertools import cycle
 import re
 
 
