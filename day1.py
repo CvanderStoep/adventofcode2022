@@ -3,12 +3,11 @@ advent of code 2022
 https://adventofcode.com/2022
 """
 
+from typing import List
 
-def read_input_file():
-    # extra empty line added to the input file to avoid corned cases
-    filename = "input/input1test.txt"
 
-    with open(filename) as f:
+def read_calories_per_elf(file_name: str) -> List[int]:
+    with open(file_name) as f:
         content = f.read().splitlines()
 
     sumOfCalories = 0
@@ -20,16 +19,22 @@ def read_input_file():
             sumOfCalories = 0
         else:
             sumOfCalories += int(line)
+    totalCalories.append(sumOfCalories)
 
     totalCalories.sort(reverse=True)
+    return totalCalories
 
-    # part I
-    print('Number of calories of the Elve that carries the most calories:', totalCalories[0])
 
-    # part II
-    sumOfHighestTreeElves = totalCalories[0] + totalCalories[1] + totalCalories[2]
-    print('Sum of calories of highest three Elves:', sumOfHighestTreeElves)
+def compute_part_one(file_name: str) -> int:
+    calories_per_elf = read_calories_per_elf(file_name)
+    return calories_per_elf[0]
+
+
+def compute_part_two(file_name: str) -> int:
+    calories_per_elf = read_calories_per_elf(file_name)
+    return calories_per_elf[0] + calories_per_elf[1] + calories_per_elf[2]
 
 
 if __name__ == '__main__':
-    read_input_file()
+    print(f"Part I: {compute_part_one('input/input1.txt')}")
+    print(f"Part II: {compute_part_two('input/input1.txt')}")
