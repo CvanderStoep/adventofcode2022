@@ -1,53 +1,48 @@
-def read_input_file():
-    filename = "input/input2.txt"
+from typing import List, Tuple
 
-    # A, B, C = rock, paper, scissors player 1
-    # X, Y, Z = rock, paper, scissors player 2
-    # X, Y, Z = loose, draw, win strategy for part II
+# A, B, C = rock, paper, scissors for opponent
+# X, Y, Z = rock, paper, scissors for ourselves for part I
+# X, Y, Z = loose, draw, win strategy for part II
 
-    with open(filename) as f:
+WIN_SCORE_TABLE = {("A", "X"): 3, ("A", "Y"): 6, ("A", "Z"): 0,
+                   ("B", "X"): 0, ("B", "Y"): 3, ("B", "Z"): 6,
+                   ("C", "X"): 6, ("C", "Y"): 0, ("C", "Z"): 3}
+CHOICE_SCORE_TABLE = {"X": 1, "Y": 2, "Z": 3}
+
+# This translates the strategy (X, Y, Z) to our own moves.
+STRATEGY_TABLE = {("A", "X"): "Z", ("A", "Y"): "X", ("A", "Z"): "Y",
+                  ("B", "X"): "X", ("B", "Y"): "Y", ("B", "Z"): "Z",
+                  ("C", "X"): "Y", ("C", "Y"): "Z", ("C", "Z"): "X"}
+
+
+def read_strategy_guide(file_name: str) -> List[Tuple[str, str]]:
+    with open(file_name) as f:
         content = f.read().splitlines()
 
-    choiceValue = {"X": 1, "Y": 2, "Z": 3}
-    scoreTable = {}
-    scoreTable[("A", "X")] = 3
-    scoreTable[("A", "Y")] = 6
-    scoreTable[("A", "Z")] = 0
-    scoreTable[("B", "X")] = 0
-    scoreTable[("B", "Y")] = 3
-    scoreTable[("B", "Z")] = 6
-    scoreTable[("C", "X")] = 6
-    scoreTable[("C", "Y")] = 0
-    scoreTable[("C", "Z")] = 3
+    return list(map(lambda line: (line.split(" ")[0], line.split(" ")[1]), content))
 
-    # part II
-    TranslationTable = {} # this translates the strategy (X, Y, Z) to player2's choice.
-    TranslationTable[("A", "X")] = "Z"
-    TranslationTable[("A", "Y")] = "X"
-    TranslationTable[("A", "Z")] = "Y"
-    TranslationTable[("B", "X")] = "X"
-    TranslationTable[("B", "Y")] = "Y"
-    TranslationTable[("B", "Z")] = "Z"
-    TranslationTable[("C", "X")] = "Y"
-    TranslationTable[("C", "Y")] = "Z"
-    TranslationTable[("C", "Z")] = "X"
 
-    totalScore = 0
-    totalScore2 = 0
+def compute_part_one(file_name: str) -> int:
+    strategy_guide = read_strategy_guide(file_name)
 
-    for line in content:
-        # part I
-        player1, player2 = line.split(" ")
-        totalScore += scoreTable[(player1, player2)] + choiceValue[player2]
-        # part II
-        player2 = TranslationTable[(player1, player2)]
-        totalScore2 += scoreTable[(player1, player2)] + choiceValue[player2]
+    score = 0
+    for [opponent_move, own_move] in strategy_guide:
+        score += WIN_SCORE_TABLE[(opponent_move, own_move)] + CHOICE_SCORE_TABLE[own_move]
 
-    # part I
-    print(f'totalscore part I= {totalScore}')
-    # part II
-    print(f'totalscore part II= {totalScore2}')
+    return score
+
+
+def compute_part_two(file_name: str) -> int:
+    strategy_guide = read_strategy_guide(file_name)
+
+    score = 0
+    for [opponent_move, strategy_move] in strategy_guide:
+        own_move = STRATEGY_TABLE[(opponent_move, strategy_move)]
+        score += WIN_SCORE_TABLE[(opponent_move, own_move)] + CHOICE_SCORE_TABLE[own_move]
+
+    return score
 
 
 if __name__ == '__main__':
-    read_input_file()
+    print(f"Part I: {compute_part_one('input/input2.txt')}")
+    print(f"Part II: {compute_part_two('input/input2.txt')}")
