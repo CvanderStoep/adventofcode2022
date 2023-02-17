@@ -4,3 +4,6 @@
 # Virtual environments
 .venv/
 
+# Caches
+__pycache__/
+
