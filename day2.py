@@ -27,7 +27,7 @@ def compute_part_one(file_name: str) -> int:
 
     score = 0
     for [opponent_move, own_move] in strategy_guide:
-        score += WIN_SCORE_TABLE[(opponent_move, own_move)] + CHOICE_SCORE_TABLE[own_move]
+        score += WIN_SCORE_TABLE[(opponent_move, own_move)] + CHOICE_SCORE_TABLE[opponent_move]
 
     return score
 
