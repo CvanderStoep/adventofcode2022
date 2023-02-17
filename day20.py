@@ -4,10 +4,6 @@
 # VARIABLE (constant)
 
 # https://adventofcode.com/2022/day/20
-from dataclasses import dataclass
-import itertools
-from itertools import cycle
-import re
 
 
 def read_input_file(filename, key):
