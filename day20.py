@@ -17,7 +17,7 @@ if __name__ == '__main__':
     filename = "input/input20.txt"
     decription_key = 811589153  # part I
     # decription_key = 1  # part II
-    original_list= read_input_file(filename, decription_key)
+    original_list = read_input_file(filename, decription_key)
     zero = (original_list.index(0), 0)
 
     # you need to include the index as well as the files includes duplicate numbers

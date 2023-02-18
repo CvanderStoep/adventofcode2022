@@ -79,7 +79,7 @@ if __name__ == '__main__':
     logging.debug(start)
 
     final_position, final_heading = evaluate_path(map= map, position=start, path=path, heading=90)
-    logging.info("final position: "+ str(final_position))
+    logging.info("final position: " + str(final_position))
     logging.info("final heading: " + str(final_heading))
 
 

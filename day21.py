@@ -66,7 +66,7 @@ if __name__ == '__main__':
         datefmt="%Y-%m-%d %H:%M:%S"
     )
     filename = "input/input21.txt"
-    math_operations= read_input_file(filename)
+    math_operations = read_input_file(filename)
     logging.debug(math_operations)
     humn_number_left = 0
     humn_number_right = 10  # starting interval to be expanded until it is large enough to start binary search
