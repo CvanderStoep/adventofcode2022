@@ -72,7 +72,7 @@ if __name__ == '__main__':
         datefmt="%Y-%m-%d %H:%M:%S"
     )
     filename = "input/input22test.txt"
-    map, path= read_input_file(filename)
+    map, path = read_input_file(filename)
     path = convert_path_to_list(path)
     logging.info(path)
     start = starting_position(map)
