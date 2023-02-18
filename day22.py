@@ -53,33 +53,51 @@ def evaluate_path(map, position, path, heading):
         else:
             heading = change_heading(rotation=change, heading=heading)
 
-        print(f'{position= }, {heading= }')
     return position, heading
 
 
 def move_position(map, heading, position, steps):
+    """"
+    move steps from current position into the heading
+    if wall (#) is encountered, break
+    if space ( ) is encountered, skip until wall or "." is encountered
+    use module rows/cols to rotate from left/right or top/bottom
+    """
     rows = len(map)
-    # cols_r = len(map[r])
-    #  TODO check end of map modulo
-    #  TODO check for spaces/periods 
+    cols = len(map[0])
 
-    for i in range(steps):
+    moves = 0
+    while moves < steps:
         old_position = position.copy()
         match heading:
             case 0:
                 position[0] -= 1
+                position[0] = position[0] % rows
+                while map[position[0]][position[1]] == " ":
+                    position[0] -= 1
+                    position[0] = position[0] % rows
             case 90:
                 position[1] += 1
+                position[1] = position[1] % cols
+                while map[position[0]][position[1]] == " ":
+                    position[1] += 1
+                    position[1] = position[1] % cols
             case 180:
                 position[0] += 1
+                position[0] = position[0] % rows
+                while map[position[0]][position[1]] == " ":
+                    position[0] += 1
+                    position[0] = position[0] % rows
             case 270:
                 position[1] -= 1
-
+                position[1] = position[1] % cols
+                while map[position[0]][position[1]] == " ":
+                    position[1] -= 1
+                    position[1] = position[1] % cols
+        moves += 1
         if map[position[0]][position[1]] == "#":
-            print('wall encountered')
-            position = old_position
-            break
-
+                position = old_position
+                break
     return position
 
 def change_heading(rotation, heading):
@@ -95,6 +113,23 @@ def starting_position(map):
             return [0,j]
 
 
+def calculate_password(position, heading):
+    final_row = position[0] + 1  # base 1
+    final_column = position[1] + 1  # base 1
+    match heading:
+        case 90:
+            final_facing = 0
+        case 180:
+            final_facing = 1
+        case 270:
+            final_facing = 2
+        case 0:
+            final_facing = 3
+
+    print(f'{final_row= }, {final_column= }, {final_facing= }')
+    password = 1000 * final_row + 4 * final_column + final_facing
+
+    return password
 
 
 if __name__ == '__main__':
@@ -103,7 +138,7 @@ if __name__ == '__main__':
         format="%(asctime)s %(levelname)s %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S"
     )
-    filename = "input/input22test.txt"
+    filename = "input/input22.txt"
     map, path = read_input_file(filename)
     map = fill_map(map)
     path = convert_path_to_list(path)
@@ -115,7 +150,8 @@ if __name__ == '__main__':
     logging.info("final position: " + str(final_position))
     logging.info("final heading: " + str(final_heading))
 
+    password = calculate_password(position=final_position, heading=final_heading)
 
 
-    print(f'partI: ')
+    print(f'partI: {password= }')
 
