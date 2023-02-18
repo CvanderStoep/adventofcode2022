@@ -7,7 +7,7 @@ https://github.com/Antosser/mind-your-decisions-using-z3/blob/main/base_sum.py
 
 from z3 import Reals, sat, Solver
 
-a, b, c, n= Reals('a b c n')
+a, b, c, n = Reals('a b c n')
 
 s = Solver()
 
