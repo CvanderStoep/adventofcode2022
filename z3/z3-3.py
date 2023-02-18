@@ -1,7 +1,7 @@
 # https://youtu.be/6F6hw_U-AX4
 
 
-from z3 import *
+from z3 import Ints, Optimize, sat
 
 x, y, z = Ints('x y z')
 

@@ -1,7 +1,7 @@
 # https://www.youtube.com/watch?v=HBahE5MO9uE
 
 
-from z3 import *
+from z3 import Ints, Optimize, sat
 
 x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, costs = Ints('x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 costs')
 
