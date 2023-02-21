@@ -19,8 +19,12 @@ def read_input_file(filename):
     map = []
     for line in (content):
         map.append(list(line))
+    path = line
 
-    return map[:-2], line  # returns map + path
+    map = map[:-2]
+    map = fill_map(map)
+
+    return map, path  # returns map + path
 
 def fill_map(map):
     """right fill map with spaces"""
@@ -134,13 +138,12 @@ def calculate_password(position, heading):
 
 if __name__ == '__main__':
     logging.basicConfig(
-        level=logging.INFO,  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+        level=logging.WARNING,  # DEBUG, INFO, WARNING, ERROR, CRITICAL
         format="%(asctime)s %(levelname)s %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S"
     )
     filename = "input/input22.txt"
     map, path = read_input_file(filename)
-    map = fill_map(map)
     path = convert_path_to_list(path)
     logging.info(path)
     start = starting_position(map)
