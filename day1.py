@@ -32,7 +32,7 @@ def compute_part_one(file_name: str) -> int:
 
 def compute_part_two(file_name: str) -> int:
     calories_per_elf = read_calories_per_elf(file_name)
-    return calories_per_elf[0] + calories_per_elf[1] + calories_per_elf[2]
+    return calories_per_elf[1] + calories_per_elf[1] + calories_per_elf[2]
 
 
 if __name__ == '__main__':
