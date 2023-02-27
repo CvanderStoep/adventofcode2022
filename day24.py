@@ -15,12 +15,12 @@ def valid_move(maze, moves):
     start = [key for key, value in maze.items() if value == "O"]
     i = start[0][1]
     j = 0
-    lenm = len(moves)
+    # lenm = len(moves)
     # if lenm % 10 == 0:
     #     print(f'{len(moves)= }')
 
-    # rows, cols = maze_size(maze)
-    rows, cols = 27, 122
+    rows, cols = maze_size(maze)
+    # rows, cols = 27, 122
 
     t = 0  # starting time
     for move in moves:
