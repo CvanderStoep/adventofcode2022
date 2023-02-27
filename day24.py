@@ -60,7 +60,7 @@ def printMaze(maze, path=""):
             j -= 1
         elif move == "D":
             j += 1
-        elif move =="W":
+        elif move == "W":
             pass
         pos.add((j, i))
 
@@ -97,7 +97,7 @@ def find_exit(maze, moves):
         elif move == "W":
             pass
 
-    if maze.get((j,i)) =="X":
+    if maze.get((j,i)) == "X":
         print("Found: " + moves)
         print(f'{len(moves)= }')
         printMaze(maze, moves)
