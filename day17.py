@@ -20,7 +20,7 @@ def init_rocks(y=0):
 
 def add_rock_to_tower(rock, tower):
     for r in rock:
-        tower.add(r)
+        tower.current_path(r)
     return tower
 
 

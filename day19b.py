@@ -94,13 +94,13 @@ def day19(filepath, part2=False):
 
 def main():
     # assert day19('test19') == 33
-    # print(f"Part 1: {day19('input19')}")
+    print(f"Part 1: {day19('input/input19.txt')}")
 
-    print(day19('input/input19.txt'))
+    # print(day19('input/input19.txt'))
 
     # assert day19('test19', True) == 56 * 62
     # # print(f"Part 2 test: {day19('test19', True)}")
-    # print(f"Part 2: {day19('input19', True)}")
+    print(f"Part 2: {day19('input/input19.txt', True)}")
 
 
 if __name__ == '__main__':

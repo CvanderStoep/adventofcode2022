@@ -19,13 +19,13 @@ def evaluate_monkey(root, monkeys, values, visited, queue):
         return
     if type(monkeys[root]) == int:
         values[root] = monkeys[root]
-        visited.add(root)
+        visited.current_path(root)
         queue.append(root)
         return
     evaluate_monkey(monkeys[root][1], monkeys, values, visited, queue)
     evaluate_monkey(monkeys[root][2], monkeys, values, visited, queue)
     values[root] = evaluate_expression(monkeys[root], values)
-    visited.add(root)
+    visited.current_path(root)
     queue.append(root)
 
 def monkey_value(monkeys, root):

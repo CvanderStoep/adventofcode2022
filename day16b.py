@@ -41,4 +41,4 @@ def solve(puzzle):
 
 
 time_start = time.perf_counter()
-print(solve(read_puzzle('input/input16test.txt')))
+print(solve(read_puzzle('input/input16.txt')))
