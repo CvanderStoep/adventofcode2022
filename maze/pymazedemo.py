@@ -4,7 +4,7 @@ def DFS(m):
     explored = [start]
     frontier = [start]
     dfsPath = {}
-    while len(frontier)>0:
+    while len(frontier) > 0:
         currCell = frontier.pop()
         if currCell == (1,1):
             break
@@ -31,7 +31,7 @@ def DFS(m):
     return fwdPath
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     m = maze(25,25)
     m.CreateMaze(loopPercent=50)
     path = DFS(m)

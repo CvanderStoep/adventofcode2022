@@ -46,6 +46,7 @@ def decimal_to_snafu(decimal: int) -> str:
     snafu = ''
     while decimal > 0:
         rem, decimal = decimal % 5, round(decimal / 5)
+        print(f'{rem= }, {decimal= }')
         snafu += trans_rev[rem]
     return snafu[::-1]
 
@@ -68,6 +69,6 @@ def compute_part_two(file_name: str) -> int:
 
 
 if __name__ == '__main__':
-    decimal_to_snafu(25)
+    decimal_to_snafu(4)
     print(f"Part I: {compute_part_one('input/input25.txt')}")
     # print(f"Part II: {compute_part_two('input/input1.txt')}")

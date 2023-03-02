@@ -12,10 +12,10 @@ Solving the maze using a DFS algorithms uses a Stack/List - LIFO
 if __name__ == '__main__':
 
     maze = createMaze2()
-    start_path= ""
+    start_path = ""
     start_position = find_start_position(maze)
-    explored_positions=[start_position]
-    all_paths=[start_path]
+    explored_positions = [start_position]
+    all_paths = [start_path]
 
     while len(all_paths) > 0:
         current_path = all_paths.pop()
